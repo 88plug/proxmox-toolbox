@@ -22,7 +22,7 @@ snapshot_name="SSHAdded"
 if [[ "$1" == "--hard-restart" ]]; then
   for i in "${!vms[@]}"; do
     vmid=$((base_id+i+1))
-    echo "Resetting VM: $vmid"
+    echo "Stopping then Starting VM: $vmid"
     qm stop $vmid --skiplock
     qm start $vmid &
   done
