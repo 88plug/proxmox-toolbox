@@ -5,6 +5,7 @@
 #Change vms= to the vm names you want to use
 #Use ./create-vm-from-clone-snapshot.sh --delete to delete any VM's in vms=!
 #Recommend you add SSH keys to ~/.ssh/authorized_keys on your base_id VM and include in snapshot!
+#This will set the hostname and /etc/hosts to those in vms= 
 ########REQUIRED#################################################################################
 
 #!/bin/bash
