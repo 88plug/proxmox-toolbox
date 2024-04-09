@@ -23,6 +23,7 @@ backup() {
   done
 
   # Backup storage configuration
+  cat /etc/fstab > $BACKUP_DIR/fstab
   cp /etc/pve/storage.cfg $BACKUP_DIR/storage.cfg
   pvesm status > $BACKUP_DIR/storage_status.txt
 
