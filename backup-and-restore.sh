@@ -50,15 +50,15 @@ backup() {
 
 restore() {
   # Restore storage configuration
-  cp $BACKUP_DIR/storage.cfg /etc/pve/storage.cfg
+  #cp $BACKUP_DIR/storage.cfg /etc/pve/storage.cfg
 
   # Restore network configuration
-  cp $BACKUP_DIR/network/interfaces /etc/network/
-  cp $BACKUP_DIR/network/hostname /etc/
-  cp $BACKUP_DIR/network/hosts /etc/
+  #cp $BACKUP_DIR/network/interfaces /etc/network/
+  #cp $BACKUP_DIR/network/hostname /etc/
+  #cp $BACKUP_DIR/network/hosts /etc/
 
   # Restore templates
-  cp -r $BACKUP_DIR/templates/cache/ /var/lib/vz/template/
+  #cp -r $BACKUP_DIR/templates/cache/ /var/lib/vz/template/
 
   # Restore LXC containers
   for ct in $(cat $BACKUP_DIR/lxc/cts.txt); do
