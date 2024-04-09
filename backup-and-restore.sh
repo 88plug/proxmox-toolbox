@@ -1,5 +1,5 @@
 #!/bin/bash
-
+set -e
 # Set backup directory
 BACKUP_DIR=/root/backup_proxmox
 mkdir -p $BACKUP_DIR
@@ -8,7 +8,13 @@ backup() {
   # Create backup directory
   mkdir -p $BACKUP_DIR
 
+  # Backup root directory - incase custom files or configs
+  echo "Backup root directory"
+  mkdir -p $BACKUP_DIR/root
+  rsync -a --exclude="$BACKUP_DIR" /root/ "$BACKUP_DIR/root/"
+
   # Backup LXC configs
+  echo "Backup LXC configs"
   mkdir -p $BACKUP_DIR/lxc
   pct list | awk 'NR>1{print $1}' > $BACKUP_DIR/lxc/cts.txt
   for ct in $(cat $BACKUP_DIR/lxc/cts.txt); do
@@ -16,6 +22,7 @@ backup() {
   done
 
   # Backup KVM configs
+  echo "Backup KVM configs"
   mkdir -p $BACKUP_DIR/kvm
   qm list | awk 'NR>1{print $1}' > $BACKUP_DIR/kvm/vms.txt
   for vm in $(cat $BACKUP_DIR/kvm/vms.txt); do
@@ -23,17 +30,20 @@ backup() {
   done
 
   # Backup storage configuration
+  echo "Backup storage configuration"
   cat /etc/fstab > $BACKUP_DIR/fstab
   cp /etc/pve/storage.cfg $BACKUP_DIR/storage.cfg
   pvesm status > $BACKUP_DIR/storage_status.txt
 
   # Backup network configuration
+  echo "Backup network configuration"
   mkdir -p $BACKUP_DIR/network
   cp /etc/network/interfaces $BACKUP_DIR/network/
   cp /etc/hostname $BACKUP_DIR/network/
   cp /etc/hosts $BACKUP_DIR/network/
 
   # Backup templates
+  echo "Backup templates"
   mkdir -p $BACKUP_DIR/templates
   cp -r /var/lib/vz/template/cache/ $BACKUP_DIR/templates/
 }
