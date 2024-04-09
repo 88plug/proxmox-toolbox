@@ -63,15 +63,24 @@ restore() {
   # Restore LXC containers
   for ct in $(cat $BACKUP_DIR/lxc/cts.txt); do
     conf=$BACKUP_DIR/lxc/$ct.conf
-    rootfs=$(sed -n 's/^rootfs: \(.*\)$/\1/p' $conf)
-    pct restore $ct $conf $rootfs
+    cp $conf /etc/pve/lxc/
   done
 
   # Restore KVM virtual machines
   for vm in $(cat $BACKUP_DIR/kvm/vms.txt); do
     conf=$BACKUP_DIR/kvm/$vm.conf
-    qm restore $vm $conf
+    cp $conf /etc/pve/qemu-server/
   done
+
+  # Zpool and vgscan as required
+  echo "Don't forget Zpool import"
+  echo "Scanning for available ZFS pools and list them"
+  zpool import
+  echo "Then run : zpool import pool_name -f"
+  echo "We need -f since we changed systems"
+  echo "Checking for volume groups with vgscan"
+  vgscan
+  
 }
 
 if [[ "$1" == "--backup" ]]; then
