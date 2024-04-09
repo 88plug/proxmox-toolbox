@@ -58,7 +58,7 @@ restore() {
   #cp $BACKUP_DIR/network/hosts /etc/
 
   # Restore templates
-  #cp -r $BACKUP_DIR/templates/cache/ /var/lib/vz/template/
+  cp -r $BACKUP_DIR/templates/cache/ /var/lib/vz/template/
 
   # Restore LXC containers
   for ct in $(cat $BACKUP_DIR/lxc/cts.txt); do
@@ -80,6 +80,9 @@ restore() {
   echo "We need -f since we changed systems"
   echo "Checking for volume groups with vgscan"
   vgscan
+
+  echo "Skipped storage, network, and templates which could be destructive."
+  echo "Please examine the files manually from backup and copy/paste relevant for the new system"
   
 }
 
