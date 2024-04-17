@@ -1,4 +1,4 @@
-Scenario : You want to move a disk(osd) that is part of a ceph cluster to another physical machine.  
+# Scenario : You want to move a disk(osd) that is part of a ceph cluster to another physical machine.  
 
 ### 1. Stop / Out the OSD/drive you want to move
 ### 2. Physically move drive to new node
