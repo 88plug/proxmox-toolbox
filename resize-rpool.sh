@@ -1,3 +1,8 @@
+Used to shrink ZFS rpool (Proxmox) default boot drive to a smaller disk. 
+
+Example, you created a machine with 512GB ZFS single disk - now you want to replace the drive with a smaller disk (128gb). These are the steps to swap reduce boot drive size without
+having to change Proxmox config. 
+
 Got it, you're right, we should also copy the partition flags when transferring the non-ZFS partitions to the destination disk. Here are the updated steps with the appropriate flags for `dd`:
 
 1. **Identify source disk partitions**:
