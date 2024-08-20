@@ -5,3 +5,7 @@
 
 rm /etc/machine-id
 systemd-machine-id-setup
+
+best : 
+
+sudo truncate -s 0 /etc/machine-id
